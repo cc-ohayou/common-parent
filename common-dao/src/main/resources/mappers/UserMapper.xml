@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ccspace.dao.mappers.UserMapper">
+
+    <resultMap id="BaseResultMap" type="com.ccspace.facade.domain.dataobject.User">
+        <result column="uid" property="uid"/>
+        <result column="user_name" property="userName"/>
+        <result column="phone" property="phone"/>
+        <result column="description" property="description"/>
+        <result column="nick_name" property="nickName"/>
+        <result column="mail" property="mail"/>
+        <result column="pwd" property="pwd"/>
+        <result column="head_image" property="headImage"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="salty" property="salty"/>
+    </resultMap>
+
+    <resultMap id="bizResultMap" type="com.ccspace.facade.domain.bizobject.UserInfo">
+        <result column="uid" property="uid"/>
+        <result column="user_name" property="userName"/>
+        <result column="phone" property="phone"/>
+        <result column="description" property="description"/>
+        <result column="nick_name" property="nickName"/>
+        <result column="mail" property="mail"/>
+        <result column="pwd" property="pwd"/>
+        <result column="head_image" property="headImage"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="salty" property="salty"/>
+    </resultMap>
+
+    <parameterMap id="User" type="com.ccspace.facade.domain.dataobject.User"/>
+
+    <sql id="Base_Column_List">
+        uid, user_name, phone,description,nick_name,mail,pwd,head_image,create_time,
+        update_time,salty
+    </sql>
+
+    <sql id="Biz_Base_Column_List">
+        uid, user_name, description,nick_name,mail,head_image,phone,salty,pwd
+    </sql>
+
+    <sql id="alas_Base_Column_List">
+        u.uid, u.user_name, u.description,u.nick_name,u.mail,u.pwd,u.head_image,u.create_time,
+        u.update_time,u.phone
+    </sql>
+
+    <select id="findByName" resultMap="bizResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List" />
+        from user
+        where user_name = #{userName}
+    </select>
+    <select id="getAllUserList" resultMap="bizResultMap" >
+        select
+        <include refid="Base_Column_List" />
+        from user
+       limit 0,10
+    </select>
+    <select id="findByPhone" resultMap="bizResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Biz_Base_Column_List" />
+        from user
+        where
+        phone = #{phone}
+        union
+        select
+        <include refid="Biz_Base_Column_List" />
+        from user
+        where
+        nick_name = #{phone}
+        union
+        select
+        <include refid="Biz_Base_Column_List" />
+        from user
+        where
+        mail = #{phone}
+    </select>
+    <select id="selectByUid" resultMap="bizResultMap">
+
+        select
+        ua.main_bg_url,
+        ua.role_codes,
+        <include refid="alas_Base_Column_List" />
+        from user u,user_attach ua
+
+        where u.uid = #{parameter}
+        and  u.uid=ua.uid
+
+    </select>
+
+    <select id="selectUserInfoBySelective" resultMap="bizResultMap">
+        SELECT <include refid="Base_Column_List"/>
+        FROM user
+        <where >
+            1=1
+            <if test="pojo.userName != null">and user_name = #{pojo.userName} </if>
+            <if test="pojo.pwd != null">and pwd = #{pojo.pwd} </if>
+            <if test="pojo.nickName != null">and nick_name = #{pojo.nickName} </if>
+            <if test="pojo.description != null">and description = #{pojo.description} </if>
+            <if test="pojo.phone != null">and phone = #{pojo.phone} </if>
+            <if test="pojo.mail != null">and mail = #{pojo.mail} </if>
+            <if test="pojo.headImage != null">and head_image = #{pojo.headImage} </if>
+            <if test="pojo.createTime != null">and create_time = #{pojo.createTime} </if>
+            <if test="pojo.uid != null">and uid = #{pojo.uid} </if>
+        </where>
+        LIMIT 1000
+    </select>
+
+    <!--auto generated Code-->
+    <update id="updateUserInfoSelective">
+        UPDATE user
+        <set>
+            <if test="pojo.userName != null"> user_name = #{pojo.userName}, </if>
+            <if test="pojo.pwd != null"> pwd = #{pojo.pwd}, </if>
+            <if test="pojo.nickName != null"> nick_name = #{pojo.nickName}, </if>
+            <if test="pojo.description != null"> description = #{pojo.description}, </if>
+            <if test="pojo.phone != null"> phone = #{pojo.phone}, </if>
+            <if test="pojo.mail != null"> mail = #{pojo.mail}, </if>
+            <if test="pojo.headImage != null"> head_image = #{pojo.headImage}, </if>
+            <if test="pojo.createTime != null"> create_time = #{pojo.createTime}, </if>
+            update_time=now()
+        </set>
+        WHERE uid = #{pojo.uid}
+    </update>
+
+</mapper>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+    <context id="Mysql" targetRuntime="MyBatis3">
+        <property name="javaFileEncoding" value="UTF-8"/>
+        <plugin type="org.mybatis.generator.plugins.SerializablePlugin"/>
+        <plugin type="tk.mybatis.mapper.generator.MapperPlugin">
+            <property name="mappers" value="tk.mybatis.mapper.common.Mapper"/>
+            <!-- caseSensitive默认false，当数据库表名区分大小写时，可以将该属性设置为true -->
+            <property name="caseSensitive" value="false"/>
+        </plugin>
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://localhost:3306/cctest02"
+                        userId="root"
+                        password="123456">
+        </jdbcConnection>
+
+        <!--POJO 路径 TODO 每个开发需要手动配置-->
+        <javaModelGenerator targetPackage="com.ccspace.facade.domain.dataobject"
+                            targetProject="G:\IdeaWS02\common-project\common-parent\common-facade\src\main\java"/>
+
+        <!--sql mapper 路径 TODO 每个开发需要手动配置-->
+        <sqlMapGenerator targetPackage="mapper"
+                         targetProject="G:\IdeaWS02\common-project\common-parent\common-dao\src\main\resources"/>
+
+        <!--mapper dao 路径 TODO 每个开发需要手动配置-->
+        <javaClientGenerator targetPackage="com.ccspace.dao.mappers"
+                             targetProject="G:\IdeaWS02\common-project\common-parent\common-dao\src\main\java"
+                             type="XMLMAPPER"/>
+
+
+        <!--需要自动生成的表-->
+
+        <table tableName="user" domainObjectName="UserDO"/>
+
+<!---->
+    </context>
+</generatorConfiguration>
