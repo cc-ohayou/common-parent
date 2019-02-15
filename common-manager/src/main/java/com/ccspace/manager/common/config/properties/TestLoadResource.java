@@ -26,6 +26,8 @@ public class TestLoadResource implements EnvironmentAware {
     public static Properties propertyJdbc=new Properties();
     public static Properties propertyRedis = new Properties();
     public static final String ENV_DIR= CommonConstants.GLOBAL_RESOURCES_DIR;
+    public static final String JDBC_PROPERTY= "/cc_jdbc.properties";
+    public static final String REDIS_PROPERTY="/cc_jedis.properties";
 
     @Bean
     public TestLoadResource getResource(){
@@ -39,8 +41,8 @@ public class TestLoadResource implements EnvironmentAware {
             globalDir = System.getenv(ENV_DIR);
         }
         logger.info("globalDir="+globalDir);
-        FileSystemResource resourceJdbc = new FileSystemResource(globalDir + "/cc_jdbc.properties");
-        FileSystemResource resourceRedis = new FileSystemResource(globalDir + "/cc_jedis.properties");
+        FileSystemResource resourceJdbc = new FileSystemResource(globalDir + JDBC_PROPERTY);
+        FileSystemResource resourceRedis = new FileSystemResource(globalDir + REDIS_PROPERTY);
         try {
             if (propertyJdbc.isEmpty()) {
                 propertyJdbc = PropertiesLoaderUtils.loadProperties(resourceJdbc);
@@ -68,5 +70,10 @@ public class TestLoadResource implements EnvironmentAware {
             logger.error("####error during init globalDir property, probably not set###");
         }
         loadProperties();
+    }
+
+    public static void main(String[] args) {
+        System.out.println(System.getenv(ENV_DIR));
+
     }
 }

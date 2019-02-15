@@ -49,7 +49,7 @@ public enum RedisChannel {
         this.label = label;
     }
 
-    public static String[] getAllPsNeedSubChannels() {
+    public static String[] getAllNeedSubChannels() {
         RedisChannel[] channelArrays= RedisChannel.values();
         List<String> list=new ArrayList<>(channelArrays.length);
         for(int i=0;i<channelArrays.length;i++){
@@ -62,7 +62,7 @@ public enum RedisChannel {
     }
 
     public static void main(String[] args) {
-        System.out.println(Arrays.toString(getAllPsNeedSubChannels()));
+        System.out.println(Arrays.toString(getAllNeedSubChannels()));
     }
 
 }

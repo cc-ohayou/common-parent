@@ -45,10 +45,10 @@ public class SettingsPubSubRelInit {
         try{
             TestLoadResource.loadProperties();
 
-            String [] patterns= RedisChannel.getAllPsNeedSubChannels();
+            String [] patterns= RedisChannel.getAllNeedSubChannels();
             Map<String,String> settings=redisManager.hgetAll(SettingsHolder.GLOBAL_SETTINGS);
 
-            logger.info("####GlobalConfigInit init GLOBAL_SETTINGS="+settings.toString());
+            logger.info("####GlobalConfigInit init 5GLOBAL_SETTINGS="+settings.toString());
             SettingsEnum.initWork(settings);
             logger.info("####GlobalConfigInit init SettingHolder properties="+ SettingsHolder.getAllProperties().toString());
             jedisPubSubPool.execute(() ->redisManager.psubscribe(settingsJedisPubSub,

@@ -9,38 +9,8 @@ public class CommonConstants {
      * 个推推送相关配置
      */
     public static final String GETUI_host = "http://sdk.open.api.igexin.com/apiex.htm";
-    public static final Integer READ_NOT =0 ;
-    public static final int REGISTER_VERIFY_EXPIRE_TIME = 600;
-    public static final String MERCHANT_ID = "merchantId";
-
     public static String GLOBAL_RESOURCES_DIR = "GLOBAL_RESOURCES_DIR";
-    //系统用户
-    public static final String USER_SYSTEM = "SYS";
-    /**
-     * 手机号码正则表达式
-     */
-    public static String PHONE_REG = "^1[0-9]{10}";
-    /**
-     * 密码正则
-     */
-    public static String PASS_REG = "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{6,16}$";
-    public static final String AVAILABLE = "1";
-
-    public static final String CLIENT_TYPE_PC = "PC";
-    public static final String CLIENT_TYPE_APP = "app";
-
-
     public static final String PROJECT_PREFIX = "common-";
-
-    public static final int LOGIN_VERIFY_EXPIRE_TIME = 60 * 30;
-
-    //手动排序设置
-    public static final String ASC = "ascend";
-    public static final String DESC = "descend";
-
-    //Redis_Limit值
-    public static final Integer START = 0;
-    public static final Integer END = -1;
 
 
 
